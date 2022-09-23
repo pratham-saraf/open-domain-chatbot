@@ -91,7 +91,9 @@ def chatbot(request: Request, message: str = Form(...)):
         chatdb.update_one({"sub": user.get("sub")}, {"$set": {"chat_log": chats}})
     return RedirectResponse(url="/chatbot", status_code=303)
 
-
+@app.get("/privacy")
+def privacy(request: Request):
+    return templates.TemplateResponse("Privacy Policy of chatbot.html",context={"request": request})
 
 
 
