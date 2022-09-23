@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Chatbot </title>
+  <link rel="stylesheet" href="{{ url_for('static', path='./style.css') }}">
+  <!-- insert a favicon -->
+  <link rel="icon" href="{{ url_for('static', path='./favicon.ico') }}" type="image/x-icon"/>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="glass-container">
+  <div class="blob">
+  </div>
+  <div class="blob2">
+  </div>
+  <form class="glass-form" action="/login">
+    <h1 style="text-align: center">Sign In with Google</h1>
+    <img src="https://img.icons8.com/color/48/000000/google-logo.png" class="google-lomgo"/>
+    <div class="button-holder">
+    <!-- <h1>Login</h1> -->
+    <button type="submit" class="btn">Login
+      <!-- <img src="{{ url_for('static', path='./google.svg') }}" alt="google"> -->
+    </button>
+    </div>
+  </form>
+</div>
+<!-- partial -->
+  
+</body>
+</html>

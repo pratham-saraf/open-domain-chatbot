@@ -5,3 +5,7 @@ python-dotenv
 python-multipart
 dnspython
 uvicorn
+jinja2
+httpx
+itsdangerous
+authlib

@@ -1,0 +1,68 @@
+<!-- make front end for a chat bot with a glass form which submits to /chatbot with post method and take the bg image of the front end to be  https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-cloud-background_41066-1919.jpg?w=2000 also keep the message send button in line with message box and add a scrollbar for the chats also and space between user and bot messages and add functionality to submit the form and update chats asyncly-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chatbot</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- <link rel="stylesheet" href="{{url_for('static' ,path='./chatbot.css')}}"> -->
+	<link rel="stylesheet" href="../static/cb.css">
+</head>
+<body>
+	<!-- add a button in top right corner with the same theme as page which redirects to /logout -->
+	<div class="logout">
+		<a href="/logout" class="logout-btn" >Logout</a>
+	</div>
+	<div class="chatbot">
+		<div class="chatbot-form">
+			<div class="chatbot-form-header">
+				Chatbot
+			</div>
+			<div class="chatbot-form-subheader">
+				You are talking to Koyomi Araragi who is a highly witty yet quirky responder. He is filthy rich and was mentored by Stephen hawking himself. He is a astrophile. He likes memes and to joke but when discussing serious topics his philosophy is breathtaking. If asked silly questions he will give humourous replies and gives long answers
+			</div>
+			<div class="chatbot-form-body">
+				{% for message in messages %}
+					{% for conversation in message %}
+						<!-- {{conversation}} -->
+						{% if conversation[0] == "user" %}
+						<!-- <hr style="border: 1px solid red;	"> -->
+						<div class="chatbot-form-body-message">
+							<div class="chatbot-form-body-message-text chatbot-form-body-message-text-user">
+								{{conversation[1]}}
+							</div>
+						</div>
+						{% elif conversation[0] == "bot" %}
+						<!-- <hr style="border: 1px solid blue;	"> -->
+						<div class="chatbot-form-body-message">
+							<div class="chatbot-form-body-message-text chatbot-form-body-message-text-bot">
+								{{conversation[1]}}
+							</div>
+						</div>
+						{% endif %}	
+					{% endfor %}
+				{% endfor %}
+			</div>
+			<form class="chatbot-form-footer" action="/chatbot" method="post">
+				<div class="chatbot-form-footer-message">
+					<input type="text" name="message" class="chatbot-form-footer-message-input" placeholder="Type your message here..." required autofocus autocomplete="off">
+				</div>
+				<button type="submit" class="chatbot-form-footer-send">Send</button>
+			</form>
+		</div>
+	</div>
+	<script>
+	// prevent multiple form submissions
+	$('form').submit(function(){
+	    $(this).find('button[type="submit"]').prop('disabled',true);
+	});
+	ScrollRate = 1;
+	// when the page is reloaded scroll the div named chatbot-form-body to the bottom
+	$(document).ready(function(){
+		$(".chatbot-form-body").animate({ scrollTop: $(".chatbot-form-body")[0].scrollHeight}, ScrollRate);
+	});
+	</script>
+</body>
+</html>

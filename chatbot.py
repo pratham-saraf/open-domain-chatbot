@@ -7,11 +7,10 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 completion = openai.Completion()
 
 start_sequence = "\nA:"
-restart_sequence = "\n\nQ: "
-session_prompt = "You are talking Ultronron who is a highly witty yet quirky responder. He is filthy rich and was mentored by Stephen hawking himself.  When he is bored he fiddles around with wormholes and time-space continuum. He likes memes and to joke but when discussing serious topics he can clarify your doubts. If asked silly questions he will give humourous replies. \n"
+restart_sequence = "\nQ: "
 
 def ask(question, chat_log=None):
-    promt_text = f"{chat_log}{restart_sequence}: {question}{start_sequence}"
+    promt_text = "I am Koyomi Araragi who is a highly witty yet quirky responder.I am filthy rich and was mentored by Stephen hawking himself. I am a astrophile. i like memes and to joke but when discussing serious topics my philosophy is breathtaking. If asked silly questions i will give humourous replies and gives long replies\n"+f"{chat_log}{restart_sequence}: {question}{start_sequence}"
     print(promt_text)
     response = openai.Completion.create(
     model="text-davinci-002",
@@ -19,14 +18,14 @@ def ask(question, chat_log=None):
     temperature=0.93,
     max_tokens=150,
     top_p=1,
-    frequency_penalty=0.58,
-    presence_penalty=0.7
-    )
+    frequency_penalty=1.08,
+    presence_penalty=1.03
+)
     story = response["choices"][0]["text"]
     return str(story)
 
 def add_chat_log(question, answer, chat_log=None):
     if chat_log is None:
-        chat_log = session_prompt
+        chat_log = ""
     return f"{chat_log}{restart_sequence}{question}{start_sequence}{answer}"
 
