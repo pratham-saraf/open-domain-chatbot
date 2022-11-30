@@ -87,8 +87,8 @@ def chatbot(request: Request, message: str = Form(...)):
     if message:
         chats = chatdb.find_one({"sub": user.get("sub")}).get("chat_log")
         #select only last 5 messages from chat log
-        chat = chat.split("Q: ")[-5:]
-        chat = "Q: ".join(chat)
+        chats = chats.split("Q: ")[-5:]
+        chats = "Q: ".join(chats)
         answer = ask(message, chats)
         chats = add_chat_log(message, answer, chats)
         chatdb.update_one({"sub": user.get("sub")}, {"$set": {"chat_log": chats}})
